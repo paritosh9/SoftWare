@@ -38,5 +38,6 @@ int main() {
 	    cout << "deallocating array_2D[" << row_cnt << "]\n";
 	    delete [] array_2D[row_cnt];
 	}
+	delete [] array_2D;
 	return 0;
 }
