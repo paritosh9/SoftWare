@@ -33,5 +33,10 @@ int main() {
 	   } 
 	}
 	
+	// deallocating memory
+	for(int row_cnt = 0; row_cnt < row_length; row_cnt++) {
+	    cout << "deallocating array_2D[" << row_cnt << "]\n";
+	    delete [] array_2D[row_cnt];
+	}
 	return 0;
 }
