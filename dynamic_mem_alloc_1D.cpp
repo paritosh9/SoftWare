@@ -19,5 +19,8 @@ int main() {
 	    cout << "A[" << cnt << "] :" << A[cnt] <<"\n" ;
 	}
 	
+	// deallocate dynamically allocated memory 
+	cout << "deallocating dynamically allocated memory\n";
+	delete [] A;
 	return 0;
 }
