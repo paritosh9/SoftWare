@@ -37,13 +37,26 @@ class linked_list {
             temp->next = head;
             temp->data = var;
             head = temp;
+            
+            if(tail == nullptr) {
+                tail = temp;
+            }
         }
         
         void insertNodeTail(int var) {
             Node* temp = new Node;
-            tail->next = temp;
+            
+            if( tail != nullptr) {
+               tail->next = temp; 
+            }
+            
+            tail = temp;
             temp->data = var;
             temp->next = nullptr;
+            
+            if(head == nullptr){
+                head = temp;
+            }
         }
         
         void printLinkedList() {
@@ -66,6 +79,7 @@ int main()
     linkedList.insertNodeTail(9);
     linkedList.insertNodeFront(11);
     linkedList.insertNodeTail(13);
+    linkedList.insertNodeTail(15);
     
     linkedList.printLinkedList();
     return 0;
