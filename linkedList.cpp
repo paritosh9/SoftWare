@@ -31,6 +31,23 @@ class linked_list {
                 tail = temp;
             }
         }
+        
+        void insertNodeFront(int var) {
+            Node *temp = new Node;
+            temp->next = head;
+            temp->data = var;
+            head = temp;
+        }
+        
+        void printLinkedList() {
+            Node *temp = this->head;
+            while(temp != nullptr) {
+                cout << temp->data << " -> ";
+                temp = temp->next;
+            }
+            cout <<"\n Done Printing Node data";
+            
+        }
 };
 
 int main()
@@ -38,6 +55,8 @@ int main()
     linked_list linkedList;
     linkedList.addNode(3);
     linkedList.addNode(5);
-
+    linkedList.insertNodeFront(7);
+    linkedList.printLinkedList;
     return 0;
 }
+
