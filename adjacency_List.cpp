@@ -26,9 +26,9 @@ class Graph {
             adjList[src].remove(dest);
         }
         
-        void isEdge(int src, int dest) {
-            auto it;
-            for(it = adjList[src].begin(); it < adjList[src].end(); it++) {
+        //Method to return if edge exists or not
+        bool isEdge(int src, int dest) {
+            for(auto it = adjList[src].begin(); it != adjList[src].end(); it++) {
                 if (*it == dest) {
                     return 1;
                 }
