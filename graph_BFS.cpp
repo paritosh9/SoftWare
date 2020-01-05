@@ -7,21 +7,29 @@ using namespace std;
 
 // Method for traversing BFS (Breadth First Search)
 void Graph::BFS(int startVertex) {
+    // dynamic memory allocation for an array
+    // it will hold information wheter vertex is visited or not, will be updated during traversal
     bool *visited_vertices = new bool [numVertices];
     for(int cnt = 0; cnt < numVertices ; cnt++) {
         visited_vertices[cnt] = 0;
     }
     
+    // declaring queue which will hold neighbouring vertices of current vertex
+    // BFS traversal uses queue data structure, which helps breadth wise traversing
+    // store new neighbouring nodes at end of queue and use next vertex for traversing from front of queue
     list <node> queue;
     
+    // updating startvertex as visited in the array
     visited_vertices[startVertex] = 1;
     int current_vertex = startVertex;
     
+    // node is tydef in class Graph in file graph.cpp
     node startNode;
     startNode.dest = current_vertex;
     startNode.weight = 0;
     queue.push_back(startNode);
     
+    // loop till queue is not empty
     while(!queue.empty()) {
         current_vertex = queue.front().dest;
         //cout <<current_vertex <<endl;
@@ -39,6 +47,7 @@ void Graph::BFS(int startVertex) {
             
     };
     
+    // print to screen value of visited_vertices array to confirm all vertices visited
     for(int cnt = 0 ; cnt < numVertices; cnt++){
         cout << "\n" << "visited_vertices[" << cnt << "] : " << visited_vertices[cnt];
     }
