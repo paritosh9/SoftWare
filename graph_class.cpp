@@ -81,7 +81,8 @@ class Graph {
         }
         
         void BFS(int startVetex);
-        
+        void DFS(int startVetex);
+    
         // Destructor
         ~Graph() {
             cout << "deleting" << endl;
