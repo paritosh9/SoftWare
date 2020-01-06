@@ -15,34 +15,42 @@ void Graph::prim_algorithm(int startVertex) {
     
     int current_vertex = startVertex;
     int lowest_weight;
-    node Node = *adjList[current_vertex].begin();
+    node Node;
     node newNode;
     int i;
+    
     while(!visited_vertices[current_vertex]) {
-        //Node = *adjList[current_vertex].begin();
-        i = 0;
+        Node.weight = 32567; // max weight as initial value
         cout << " -> " << current_vertex;
-        visited_vertices[current_vertex] = 1;
+        visited_vertices[current_vertex] = 1; // updating visited_vertices array
+        
+        /* 
+            iterating over neighbouring nodes of current vertex
+            Choosing the neigbour with minimum edge weight to traverse
+        */
         for(auto it = adjList[current_vertex].begin(); it != adjList[current_vertex].end(); it++) {
             newNode = *it;
-            if(visited_vertices[newNode.dest]) {
-                continue;
-            }
-            else if(i == 0) {
-                Node = newNode;
-                i++;
-            }
-            else if(i != 0 && newNode.weight < Node.weight && !visited_vertices[newNode.dest]) {
+            if(newNode.weight < Node.weight && !visited_vertices[newNode.dest]) {    
                 lowest_weight = newNode.weight;
-                current_vertex = newNode.dest;
                 Node = newNode;
             }
-            
         }
+        
+        //Updating current vertex to point to node selected with minimum edge weight
         current_vertex = Node.dest;
-        //cout << current_vertex << endl;
-    
-        int flag = 0;
+        
+        /*
+            Iterating over vertices to make sure current vertex is not visited
+            We do that by looking into visited_vertices array
+            We break from for loop below if current vertex is not visited
+            
+            If current vertex is already visited, then we find a vertex 
+            from visited_vertices array which is not visited.
+            We use that as current_vertex
+            There is a corner case where non visited vertex
+            might not be connected to other vertices
+            We check that using adjList[cnt].empty() and ignore that vertex
+        */
         for(int cnt = 0; cnt < numVertices ; cnt++) {
             //cout << "visited_vertices[" << cnt << "]" << visited_vertices[cnt] <<endl;
             if(!visited_vertices[current_vertex]) {
@@ -56,10 +64,13 @@ void Graph::prim_algorithm(int startVertex) {
                 break;
             }
         }
-        
-    
     }
+    
     cout << endl;
+    for(int cnt = 0; cnt < numVertices ; cnt++) {
+            cout << "visited_vertices[" << cnt << "]" << visited_vertices[cnt] <<endl;
+    }
+    
 }   
 
 int main() {
