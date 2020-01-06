@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <list>
 #include <iterator>
@@ -14,14 +13,16 @@ void Graph::prim_algorithm(int startVertex) {
     }
     
     int current_vertex = startVertex;
+    int prev_vertex;
     int lowest_weight;
     node Node;
     node newNode;
-    int i;
+    int flag = 0;
     
     while(!visited_vertices[current_vertex]) {
+        prev_vertex = current_vertex;
         Node.weight = 32567; // max weight as initial value
-        cout << " -> " << current_vertex;
+        //cout << " -> " << current_vertex;
         visited_vertices[current_vertex] = 1; // updating visited_vertices array
         
         /* 
@@ -30,7 +31,15 @@ void Graph::prim_algorithm(int startVertex) {
         */
         for(auto it = adjList[current_vertex].begin(); it != adjList[current_vertex].end(); it++) {
             newNode = *it;
-            if(newNode.weight < Node.weight && !visited_vertices[newNode.dest]) {    
+            // Normal condition while traversing the graph 
+            //using adjecent vertex with lowest edge weight
+            if(flag ==0 && newNode.weight < Node.weight && !visited_vertices[newNode.dest]) {    
+                lowest_weight = newNode.weight;
+                Node = newNode;
+            }
+            //Once we star traversing non adjacent vertices of current vertex
+            //we look into visited_vertices array for this
+            else if(flag == 1 && newNode.weight < Node.weight) {
                 lowest_weight = newNode.weight;
                 Node = newNode;
             }
@@ -38,6 +47,10 @@ void Graph::prim_algorithm(int startVertex) {
         
         //Updating current vertex to point to node selected with minimum edge weight
         current_vertex = Node.dest;
+        if(current_vertex != prev_vertex) {
+            // printing Edges of minimum spanning tree to screen
+            cout << "Edge  " << prev_vertex << " -> " << current_vertex << " : " << Node.weight << endl;
+        }
         
         /*
             Iterating over vertices to make sure current vertex is not visited
@@ -47,6 +60,11 @@ void Graph::prim_algorithm(int startVertex) {
             If current vertex is already visited, then we find a vertex 
             from visited_vertices array which is not visited.
             We use that as current_vertex
+            We set flag as 1 when we enter a condition 
+            where we start using vertices which are not adjacent to current vertex
+            Since we then change condition and can use vertex already visited as well
+            to determine minimum weight Edge
+            
             There is a corner case where non visited vertex
             might not be connected to other vertices
             We check that using adjList[cnt].empty() and ignore that vertex
@@ -60,10 +78,12 @@ void Graph::prim_algorithm(int startVertex) {
                 if(adjList[cnt].empty()){
                     continue;
                 }
+                flag =1;
                 current_vertex = cnt;
                 break;
             }
         }
+        
     }
     
     cout << endl;
