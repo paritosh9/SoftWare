@@ -19,6 +19,9 @@ void Graph::prim_algorithm(int startVertex) {
     node newNode;
     int flag = 0;
     
+    list <int> list_vertices;
+    list_vertices.push_back(current_vertex);
+    
     while(!visited_vertices[current_vertex]) {
         prev_vertex = current_vertex;
         Node.weight = 32567; // max weight as initial value
@@ -31,6 +34,12 @@ void Graph::prim_algorithm(int startVertex) {
         */
         for(auto it = adjList[current_vertex].begin(); it != adjList[current_vertex].end(); it++) {
             newNode = *it;
+            
+            // pushing all adjacent vertices to list so as to map graph while traversing
+            // this list will help us avoid edges which are disconnected from the graph
+            // beacuse they will not show up in the list_vertices as we traverse
+            list_vertices.push_back(newNode.dest);
+             
             // Normal condition while traversing the graph 
             //using adjecent vertex with lowest edge weight
             if(flag ==0 && newNode.weight < Node.weight && !visited_vertices[newNode.dest]) {    
@@ -54,34 +63,31 @@ void Graph::prim_algorithm(int startVertex) {
         
         /*
             Iterating over vertices to make sure current vertex is not visited
-            We do that by looking into visited_vertices array
+            We do that by looking into visited_vertices array and list_vertices list
             We break from for loop below if current vertex is not visited
             
             If current vertex is already visited, then we find a vertex 
-            from visited_vertices array which is not visited.
+            from list_vertices list which is not visited.
             We use that as current_vertex
             We set flag as 1 when we enter a condition 
             where we start using vertices which are not adjacent to current vertex
-            Since we then change condition and can use vertex already visited as well
+            Since we then change condition in above for loop and can use vertex already visited as well
             to determine minimum weight Edge
             
-            There is a corner case where non visited vertex
-            might not be connected to other vertices
-            We check that using adjList[cnt].empty() and ignore that vertex
         */
-        for(int cnt = 0; cnt < numVertices ; cnt++) {
+        //for(int cnt = 0; cnt < numVertices ; cnt++) {
+        while(!list_vertices.empty()) {
             //cout << "visited_vertices[" << cnt << "]" << visited_vertices[cnt] <<endl;
+            int cnt = list_vertices.front();
             if(!visited_vertices[current_vertex]) {
                 break;
             }
-            if(visited_vertices[current_vertex] && !visited_vertices[cnt]) {
-                if(adjList[cnt].empty()){
-                    continue;
-                }
+            if(visited_vertices[current_vertex] && !visited_vertices[list_vertices.front()]) {
                 flag =1;
                 current_vertex = cnt;
                 break;
             }
+            list_vertices.pop_front();
         }
         
     }
@@ -94,7 +100,7 @@ void Graph::prim_algorithm(int startVertex) {
 }   
 
 int main() {
-    Graph g(8);
+    Graph g(13);
     g.addWeightEdge(0,2,1);
     g.addWeightEdge(0,1,9);
     g.addWeightEdge(1,3,2);
@@ -103,6 +109,9 @@ int main() {
     g.addWeightEdge(4,3,22);
     g.addWeightEdge(7,3,45);
     g.addWeightEdge(5,2,55);
+    g.addWeightEdge(10,9,88);
+    g.addWeightEdge(11,5,199);
+    g.addWeightEdge(8, 2, 524);
     
     g.print_adjList();
     
