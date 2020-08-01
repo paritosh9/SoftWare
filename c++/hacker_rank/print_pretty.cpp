@@ -1,7 +1,3 @@
-#include <iostream>
-#include <iomanip> 
-using namespace std;
-
 int main() {
 	int T; cin >> T;
 	cout << setiosflags(ios::uppercase);
@@ -11,14 +7,12 @@ int main() {
 		double B; cin >> B;
 		double C; cin >> C;
 
-        int int_format_A = (int) A;
-        cout << setw(0) << hex << resetiosflags(ios::uppercase) << setiosflags(ios::showbase) << int_format_A << endl;;
-        //cout << int_format_A << endl;
+        cout << setw(0) << hex << resetiosflags(ios::uppercase) << setiosflags(ios::showbase) << static_cast<long long>(A) << endl;;
 
         cout.fill('_');
         cout << setw(0xf) << fixed << setprecision(2) << showpos << right << B << endl;
 
-        cout << noshowpos << scientific << setiosflags(ios::uppercase) << setprecision(9) << C << endl;
+        cout << setw(0) << noshowpos << scientific << setiosflags(ios::uppercase) << setprecision(9) << C << endl;
 	}
 	return 0;
 
