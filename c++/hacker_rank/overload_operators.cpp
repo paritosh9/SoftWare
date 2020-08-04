@@ -36,7 +36,7 @@ public:
 //+ should add two complex numbers as (a+ib) + (c+id) = (a+c) + i(b+d)
 //<< should print a complex number in the format "a+ib"
 
-Complex operator + (Complex x, Complex y) {
+Complex operator + (const Complex &x, const Complex &y) {
     Complex out;
     out.a = x.a +y.a;
     out.b = x.b + y.b;
