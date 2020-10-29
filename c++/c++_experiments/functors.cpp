@@ -41,7 +41,7 @@ int check(vector<string> strings, Test &match) {
 	return count;
 }
 
-int main() {
+int main(){
 	vector<string> numbers{ "one", "one", "two", "three" };
 	Match_Test_1 match1;
 	Match_Test_2 match2;
